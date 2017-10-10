@@ -1,7 +1,7 @@
 ---
 title: "High Notes #1"
 type: high-notes
-date: 2017-10-20 19:00:00 -0800
+date: 2017-10-23 19:00:00 -0800
 location: Near Buena Vista Park (location TBA)
 eventbrite_id: 38697375893
 layout: event
