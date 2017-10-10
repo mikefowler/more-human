@@ -1,0 +1,44 @@
+title: More Human
+description: More Human puts on weird events that inspire play, ignite conversation, and invite reflection.
+repository: mikefowler/more-human.co
+url: http://more-human.co
+baseurl: ""
+port: 4700
+livereload: true
+
+# We need to publish future-dated content, because we're
+# putting up scheduled event pages.
+future: true
+
+author:
+  name: Mike Fowler
+  email: hello@more-human.co
+
+collections:
+  events:
+    output: true
+    permalink: /events/:year/:month/:day/:title
+
+defaults:
+  - scope:
+      path: ""
+      type: events
+    values:
+      layout: page
+
+# Build settings
+markdown: kramdown
+
+# Plugins
+gems:
+  - jekyll-feed
+  - jekyll-pagination
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  - jekyll-github-metadata
+  - jekyll-livereload
+
+exclude:
+  - Gemfile
+  - Gemfile.lock

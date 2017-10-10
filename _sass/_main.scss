@@ -1,0 +1,484 @@
+// ------------------------------------------------------------------------------------------------
+// Dependencies
+// ------------------------------------------------------------------------------------------------
+
+@import "lib/reset";
+@import "lib/grid";
+@import "lib/mathsass/math";
+@import "lib/modularscale";
+@import "lib/breakpoint";
+
+// ------------------------------------------------------------------------------------------------
+// Variables
+// ------------------------------------------------------------------------------------------------
+
+$unit: 0.5rem;
+
+$at-small: (max-width 959px), (max-height 499px);
+$at-mediumAndAbove: (960px) (min-height 500px);
+$at-largeAndAbove: (1200px) (min-height 500px);
+
+$modularscale: (
+  base: 20px,
+  ratio: 1.5,
+  480px: (
+    ratio: 1.2,
+  ),
+  960px: (
+    ratio: 1.2,
+  ),
+  1200px: (
+    ratio: 1.3,
+  ),
+);
+
+$colors: (
+  default: #444,
+  white: white,
+  transparent-white: rgba(255, 255, 255, 0.9),
+  primary: mediumturquoise, // #48D1CC
+  link: darken(mediumturquoise, 20%),
+  link-active: mediumturquoise,
+  lightgrey: #f6f6f6,
+  lightblue: deepskyblue, // #00BFFF
+  lightpink: lightpink, // #FFB6C1
+  grey: #eeeeee,
+  red: salmon, // #FA8072
+  orange: darkorange, // #FF8C00
+  purple: darkslateblue, // #483D8B
+);
+
+$typefaces: (
+  sans-serif: #{'Raleway', sans-serif},
+  serif: #{'Abril Fatface', cursive},
+);
+
+$spacing-variations: 6;
+
+$body-padding: 2rem;
+
+// ------------------------------------------------------------------------------------------------
+// Mixins + Functions
+// ------------------------------------------------------------------------------------------------
+
+@function color($name) {
+  @return map-get($colors, $name);
+}
+
+@function typeface($name) {
+  @return map-get($typefaces, $name);
+}
+
+@function gradient-from-color($color) {
+  @if (lightness($color) > 50) {
+    @return unquote("radial-gradient(farthest-corner at 10px 10px, #{$color}, #{darken($color, 20%)})");
+  } @else {
+    @return unquote("radial-gradient(farthest-corner at 10px 10px, #{lighten($color, 20%)}, #{$color})");
+  }
+}
+
+@mixin gradient-text($color) {
+  color: $color;
+
+  @supports (-webkit-background-clip: text) {
+    color: transparent;
+    -webkit-background-clip: text;
+    background-image: gradient-from-color($color);
+
+    @include selection {
+      background: $color;
+      color: color(white);
+    }
+  }
+}
+
+@mixin selection() {
+  ::-moz-selection {
+    @content;
+  }
+
+  ::selection {
+    @content;
+  }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Global
+// ------------------------------------------------------------------------------------------------
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: color(default);
+  display: flex;
+  flex-direction: column;
+  font-family: typeface('sans-serif');
+  font-size: ms(0);
+  font-weight: 300;
+  line-height: 1.4;
+  min-height: 100vh;
+}
+
+@include selection {
+  background: color(primary);
+  color: color(white);
+}
+
+a {
+  color: color(link);
+  text-decoration-skip: ink;
+  text-decoration-color: color(link);
+  -webkit-text-decoration-skip: ink;
+  -webkit-text-decoration-color: color(link);
+
+  &:hover {
+    color: color(link-active);
+  }
+}
+
+p {
+  margin-bottom: $unit * 3;
+  max-width: 30em;
+}
+
+strong {
+  font-weight: 700;
+}
+
+@for $size from 1 through 6 {
+  $ms: 6 - $size;
+
+  h#{$size},
+  .heading-#{$size} {
+    font-family: typeface('serif');
+    font-weight: normal;
+  }
+
+  .subheading-#{$size} {
+    font-family: typeface('sans-serif');
+    font-weight: 700;
+  }
+
+  h#{$size},
+  .heading-#{$size},
+  .subheading-#{$size},
+  .size-#{$size} {
+    @include ms-respond(font-size, $ms);
+    line-height: (1.2 + ($size * 0.05));
+  }
+}
+
+@each $typeface, $font-family in $typefaces {
+  .font-#{$typeface} {
+    font-family: $font-family;
+  }
+}
+
+@each $name, $color in $colors {
+  .text-#{"" + $name} {
+    @include gradient-text($color);
+  }
+}
+
+@for $size from 1 through $spacing-variations {
+  .space-#{$size} {
+    margin-bottom: $unit * $size;
+  }
+
+  .space-top-#{$size} {
+    margin-top: $unit * $size;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-right-md {
+  @include breakpoint($at-mediumAndAbove) {
+    text-align: right;
+  }
+}
+
+.text-hidden {
+  visibility: hidden;
+}
+
+hr {
+  background: color(grey);
+  border: none;
+  height: 1px;
+  width: 40px;
+  margin-top: $unit * 4;
+  margin-bottom: $unit * 4;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Buttons
+// ------------------------------------------------------------------------------------------------
+
+.btn {
+  $btn-default-text: color(default);
+  $btn-default-background: color(lightgrey);
+  $btn-default-background-active: darken($btn-default-background, 10%);
+
+  background-color: $btn-default-background;
+  background-image: $btn-default-background-active;
+  border-radius: $unit * 4;
+  color: $btn-default-text;
+  cursor: pointer;
+  display: inline-block;
+  padding: $unit ($unit * 2);
+  text-decoration: none;
+  @include ms-respond(font-size, 0);
+
+  &:hover {
+    background-color: color(lightgrey);
+    background-image: gradient-from-color(color(lightgrey));
+    color: color(default);
+  }
+}
+
+.btn--large {
+  border-radius: $unit * 8;
+  padding: ($unit * 2) ($unit * 4);
+  @include ms-respond(font-size, 1);
+}
+
+.btn--primary {
+  $btn-primary-text: color(white);
+  $btn-primary-background: color(primary);
+  $btn-primary-background-active: darken($btn-primary-background, 10%);
+
+  background-color: $btn-primary-background;
+  background-image: gradient-from-color($btn-primary-background);
+  color: $btn-primary-text;
+
+  &:hover {
+    background-color: $btn-primary-background-active;
+    background-image: gradient-from-color($btn-primary-background-active);
+    color: $btn-primary-text;
+  }
+}
+
+.btn--action {
+  $btn-action-text: color(white);
+  $btn-action-background: color(red);
+  $btn-action-background-active: darken($btn-action-background, 10%);
+
+  background-color: $btn-action-background;
+  background-image: gradient-from-color($btn-action-background);
+  color: $btn-action-text;
+
+  &:hover {
+    background-color: $btn-action-background-active;
+    background-image: gradient-from-color($btn-action-background-active);
+    color: $btn-action-text;
+  }
+}
+
+.btn--block {
+  display: block;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Masthead
+// ------------------------------------------------------------------------------------------------
+
+.masthead {
+  padding: $body-padding;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Page
+// ------------------------------------------------------------------------------------------------
+
+.page {
+  flex: 1;
+  padding: 0 $body-padding $body-padding;
+}
+
+.page__title {
+  color: color(default);
+  display: inline-block;
+  text-decoration-color: color(grey);
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Navigation
+// ------------------------------------------------------------------------------------------------
+
+.nav {
+
+}
+
+.nav__link {
+  display: block;
+  padding: ($unit / 2) 0;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Footer
+// ------------------------------------------------------------------------------------------------
+
+.footer {
+  background: color(lightgrey);
+  padding: $body-padding;
+}
+
+// ------------------------------------------------------------------------------------------------
+// Wordplay
+// ------------------------------------------------------------------------------------------------
+
+.wordplay {
+  padding: $body-padding;
+
+  @include breakpoint($at-mediumAndAbove) {
+    padding: 0;
+  }
+}
+
+.wordplay__title {
+  user-select: none;
+
+  @include breakpoint($at-mediumAndAbove) {
+    position: fixed;
+    top: $body-padding;
+    left: $body-padding;
+    z-index: -1;
+  }
+}
+
+.wordplay__title__muted {
+  position: relative;
+
+  @include breakpoint($at-small) {
+    @include gradient-text(color(primary));
+  }
+
+  @include breakpoint($at-mediumAndAbove) {
+    color: color(lightgrey);
+  }
+}
+
+.wordplay__content {
+  @include breakpoint($at-mediumAndAbove) {
+    position: fixed;
+    bottom: $body-padding;
+    right: $body-padding;
+  }
+}
+
+.wordplay__words {
+  display: none;
+  user-select: none;
+  cursor: default;
+
+  @include breakpoint($at-mediumAndAbove) {
+    display: block;
+  }
+}
+
+.wordplay__word {
+  line-height: 1;
+}
+
+.wordplay__section {
+  height: 100vh;
+  margin: 0;
+  padding-left: $body-padding;
+  padding-top: $body-padding;
+}
+
+.wordplay__description {
+  @include breakpoint($at-mediumAndAbove) {
+    // background: color(transparent-white);
+    max-width: 50vw;
+    padding: $unit;
+    padding-right: 0;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: color(transparent-white);
+      z-index: -1;
+      -webkit-filter: blur(20px);
+    }
+  }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Eventbrite
+// ------------------------------------------------------------------------------------------------
+
+.embed {
+  width: 100%;
+  margin-bottom: $unit * 2;
+
+  @include breakpoint($at-mediumAndAbove) {
+    max-width: 50vw;
+  }
+}
+
+// ------------------------------------------------------------------------------------------------
+// Upcoming events
+// ------------------------------------------------------------------------------------------------
+
+.upcoming-events {
+
+}
+
+.upcoming-event {
+  align-items: flex-start;
+  color: color(default);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.upcoming-event__title {
+  color: color(default);
+  text-decoration-color: color(default);
+  line-height: 1;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.upcoming-event__details {
+  padding-left: $unit * 2;
+}
+
+.upcoming-event__date {
+  background: color(default);
+  color: color(white);
+  padding: $unit ($unit * 2);
+  line-height: 1.3;
+  text-align: center;
+  order: -1;
+
+  span {
+    display: block;
+  }
+}

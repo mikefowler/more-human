@@ -1,0 +1,15 @@
+{% assign start_year = '2017' %}
+
+{% capture current_year %}{{ 'now' | date: "%Y" }}{% endcapture %}
+
+{% capture year %}
+  {% if start_year == current_year %}
+    {{ current_year }}
+  {% else %}
+    {{ start_year }}–{{ current_year }}
+  {% endif %}
+{% endcapture %}
+
+<footer class="footer text-center">
+  &copy; Copyright {{ year | strip }}, {{ site.author.name }}
+</footer>

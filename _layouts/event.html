@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+<p>
+  <strong>{{ page.date | date: "%B %d, %I:%M %p" }}</strong>
+  <br />
+  <em>{{ page.location }}</em>
+</p>
+
+{{ content }}
+
+{% if page.eventbrite_id %}
+  {%
+    include
+      eventbrite.html
+      event_id=page.eventbrite_id
+      height=360
+  %}
+{% endif %}

@@ -1,0 +1,20 @@
+- name: Human
+  color: primary
+
+- name: Playful
+  color: lightblue
+
+- name: Emotional
+  color: lightpink
+
+- name: Thoughtful
+  color: red
+
+- name: Vulnerable
+  color: orange
+
+- name: Introspective
+  color: purple
+
+- name: Human
+  color: primary

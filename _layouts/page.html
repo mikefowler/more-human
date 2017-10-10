@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+{% include masthead.html %}
+
+<main class="page">
+
+  <a class="page__title" href="{{ page.url }}">
+    <h1 class="heading-2 space-4">
+      {{ page.title }}
+    </h1>
+  </a>
+
+  {{ content }}
+
+</main>
+
+{% include footer.html %}
