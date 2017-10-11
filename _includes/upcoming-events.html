@@ -11,9 +11,14 @@
     <div class="col-sm-4">
       <div class="upcoming-event">
         <div class="upcoming-event__details">
-          <a class="upcoming-event__title subheading-5" href="{{ event.url }}">{{ event.title }}</a>
+          <div class="space-2">
+            <a class="upcoming-event__title subheading-5" href="{{ event.url }}">
+              {{ event.title }}
+            </a>
+          </div>
           <div class="upcoming-event__time space-2">
-            <small><em>{{ event.date | date: "%l:%M %p" }}</em></small>
+            <small><em>{{ event.date | date: "%l:%M %p" }}</em></small><br />
+            <small><em>{{ event.location }}</em></small>
           </div>
           <div class="upcoming-event__description">
             {{ event.excerpt }}

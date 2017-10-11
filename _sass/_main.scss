@@ -33,19 +33,19 @@ $modularscale: (
 );
 
 $colors: (
-  default: #444,
-  white: white,
-  transparent-white: rgba(255, 255, 255, 0.9),
-  primary: mediumturquoise, // #48D1CC
-  link: darken(mediumturquoise, 20%),
-  link-active: mediumturquoise,
-  lightgrey: #f6f6f6,
-  lightblue: deepskyblue, // #00BFFF
-  lightpink: lightpink, // #FFB6C1
-  grey: #eeeeee,
-  red: salmon, // #FA8072
-  orange: darkorange, // #FF8C00
-  purple: darkslateblue, // #483D8B
+  'default': #444,
+  'white': white,
+  'transparent-white': rgba(255, 255, 255, 0.9),
+  'primary': mediumturquoise, // #48D1CC
+  'link': darken(mediumturquoise, 20%),
+  'link-active': mediumturquoise,
+  'lightgrey': #f6f6f6,
+  'lightblue': deepskyblue, // #00BFFF
+  'lightpink': lightpink, // #FFB6C1
+  'grey': #eeeeee,
+  'red': salmon, // #FA8072
+  'orange': darkorange, // #FF8C00
+  'purple': darkslateblue, // #483D8B
 );
 
 $typefaces: (
@@ -87,7 +87,7 @@ $body-padding: 2rem;
 
     @include selection {
       background: $color;
-      color: color(white);
+      color: color('white');
     }
   }
 }
@@ -111,7 +111,7 @@ $body-padding: 2rem;
 }
 
 body {
-  color: color(default);
+  color: color('default');
   display: flex;
   flex-direction: column;
   font-family: typeface('sans-serif');
@@ -122,19 +122,19 @@ body {
 }
 
 @include selection {
-  background: color(primary);
-  color: color(white);
+  background: color('primary');
+  color: color('white');
 }
 
 a {
-  color: color(link);
+  color: color('link');
   text-decoration-skip: ink;
-  text-decoration-color: color(link);
+  text-decoration-color: color('link');
   -webkit-text-decoration-skip: ink;
-  -webkit-text-decoration-color: color(link);
+  -webkit-text-decoration-color: color('link');
 
   &:hover {
-    color: color(link-active);
+    color: color('link-active');
   }
 }
 
@@ -211,7 +211,7 @@ strong {
 }
 
 hr {
-  background: color(grey);
+  background: color('grey');
   border: none;
   height: 1px;
   width: 40px;
@@ -219,13 +219,23 @@ hr {
   margin-bottom: $unit * 4;
 }
 
+ol.horizontal-list,
+ul.horizontal-list {
+  li {
+    display: inline-block;
+  }
+  li:not(:last-child) {
+    margin-right: $unit;
+  }
+}
+
 // ------------------------------------------------------------------------------------------------
 // Buttons
 // ------------------------------------------------------------------------------------------------
 
 .btn {
-  $btn-default-text: color(default);
-  $btn-default-background: color(lightgrey);
+  $btn-default-text: color('default');
+  $btn-default-background: color('lightgrey');
   $btn-default-background-active: darken($btn-default-background, 10%);
 
   background-color: $btn-default-background;
@@ -239,9 +249,9 @@ hr {
   @include ms-respond(font-size, 0);
 
   &:hover {
-    background-color: color(lightgrey);
-    background-image: gradient-from-color(color(lightgrey));
-    color: color(default);
+    background-color: color('lightgrey');
+    background-image: gradient-from-color(color('lightgrey'));
+    color: color('default');
   }
 }
 
@@ -252,8 +262,8 @@ hr {
 }
 
 .btn--primary {
-  $btn-primary-text: color(white);
-  $btn-primary-background: color(primary);
+  $btn-primary-text: color('white');
+  $btn-primary-background: color('primary');
   $btn-primary-background-active: darken($btn-primary-background, 10%);
 
   background-color: $btn-primary-background;
@@ -268,8 +278,8 @@ hr {
 }
 
 .btn--action {
-  $btn-action-text: color(white);
-  $btn-action-background: color(red);
+  $btn-action-text: color('white');
+  $btn-action-background: color('red');
   $btn-action-background-active: darken($btn-action-background, 10%);
 
   background-color: $btn-action-background;
@@ -305,9 +315,9 @@ hr {
 }
 
 .page__title {
-  color: color(default);
+  color: color('default');
   display: inline-block;
-  text-decoration-color: color(grey);
+  text-decoration-color: color('grey');
 
   &:hover {
     color: inherit;
@@ -332,8 +342,19 @@ hr {
 // ------------------------------------------------------------------------------------------------
 
 .footer {
-  background: color(lightgrey);
   padding: $body-padding;
+  position: relative;
+
+  &::before {
+    background: color('default');
+    content: "";
+    height: 1px;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%);
+    width: 60px;
+  }
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -363,11 +384,11 @@ hr {
   position: relative;
 
   @include breakpoint($at-small) {
-    @include gradient-text(color(primary));
+    @include gradient-text(color('primary'));
   }
 
   @include breakpoint($at-mediumAndAbove) {
-    color: color(lightgrey);
+    color: color('lightgrey');
   }
 }
 
@@ -402,7 +423,6 @@ hr {
 
 .wordplay__description {
   @include breakpoint($at-mediumAndAbove) {
-    // background: color(transparent-white);
     max-width: 50vw;
     padding: $unit;
     padding-right: 0;
@@ -415,7 +435,7 @@ hr {
       left: 0;
       right: 0;
       bottom: 0;
-      background: color(transparent-white);
+      background: color('transparent-white');
       z-index: -1;
       -webkit-filter: blur(20px);
     }
@@ -445,7 +465,7 @@ hr {
 
 .upcoming-event {
   align-items: flex-start;
-  color: color(default);
+  color: color('default');
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -457,8 +477,8 @@ hr {
 }
 
 .upcoming-event__title {
-  color: color(default);
-  text-decoration-color: color(default);
+  color: color('default');
+  text-decoration-color: color('default');
   line-height: 1;
 
   &:hover {
@@ -467,12 +487,12 @@ hr {
 }
 
 .upcoming-event__details {
-  padding-left: $unit * 2;
+  padding-left: $unit * 3;
 }
 
 .upcoming-event__date {
-  background: color(default);
-  color: color(white);
+  background: color('default');
+  color: color('white');
   padding: $unit ($unit * 2);
   line-height: 1.3;
   text-align: center;

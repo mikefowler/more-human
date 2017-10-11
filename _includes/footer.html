@@ -11,5 +11,10 @@
 {% endcapture %}
 
 <footer class="footer text-center">
-  &copy; Copyright {{ year | strip }}, {{ site.author.name }}
+  &copy; {{ year | strip }} {{ site.author.name }}
+  <ul class="horizontal-list space-top-1">
+    {% for link in site.data.navigation %}
+      <li><a href="{{ link.href }}"><small>{{ link.text }}</small></a></li>
+    {% endfor %}
+  </ul>
 </footer>
