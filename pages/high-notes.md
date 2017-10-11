@@ -11,5 +11,5 @@ _High Notes_ is about listening to music, together. Each person attending choose
 
 For those who wish to enhance their experience of the music, use of cannabis is welcome.
 
-[Get a ticket!]({% link pages/calendar.md %}){: .btn .btn--action .btn--large }
+[Upcoming events]({% link pages/calendar.md %}){: .btn .btn--action }
 {: .space-top-4 }
