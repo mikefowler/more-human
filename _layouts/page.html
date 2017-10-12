@@ -2,18 +2,23 @@
 layout: default
 ---
 
-{% include masthead.html %}
+<div class="layout">
+  {% include masthead.html %}
 
-<main class="page container">
+  <main class="container container-fluid">
+    <div class="row">
+      <div class="col-xs">
+        <a class="page__title" href="{{ page.url }}">
+          <h1 class="heading-2 space-4">
+            {{ page.title }}
+          </h1>
+        </a>
 
-  <a class="page__title" href="{{ page.url }}">
-    <h1 class="heading-2 space-4">
-      {{ page.title }}
-    </h1>
-  </a>
+        {{ content }}
 
-  {{ content }}
+      </div>
+    </div>
+  </main>
+</div>
 
-</main>
-
-{% include footer.html %}
+  {% include footer.html %}
