@@ -3,10 +3,11 @@
 // ------------------------------------------------------------------------------------------------
 
 @import "lib/reset";
-@import "lib/grid";
 @import "lib/mathsass/math";
 @import "lib/modularscale";
 @import "lib/breakpoint";
+
+@import "grid";
 
 // ------------------------------------------------------------------------------------------------
 // Variables
@@ -139,7 +140,7 @@ a {
 }
 
 p {
-  margin-bottom: $unit * 3;
+  @include ms-respond(margin-bottom, 1);
   max-width: 30em;
 }
 
@@ -159,6 +160,12 @@ strong {
   .subheading-#{$size} {
     font-family: typeface('sans-serif');
     font-weight: 700;
+  }
+
+  h#{$size},
+  .heading-#{$size},
+  .subheading-#{$size} {
+    @include ms-respond(margin-bottom, $size * 0.1);
   }
 
   h#{$size},
@@ -184,11 +191,11 @@ strong {
 
 @for $size from 1 through $spacing-variations {
   .space-#{$size} {
-    margin-bottom: $unit * $size;
+    @include ms-respond(margin-bottom, $size * 0.1);
   }
 
   .space-top-#{$size} {
-    margin-top: $unit * $size;
+    @include ms-respond(margin-top, $size * 0.1);
   }
 }
 
@@ -208,15 +215,6 @@ strong {
 
 .text-hidden {
   visibility: hidden;
-}
-
-hr {
-  background: color('grey');
-  border: none;
-  height: 1px;
-  width: 40px;
-  margin-top: $unit * 4;
-  margin-bottom: $unit * 4;
 }
 
 ol.horizontal-list,
@@ -305,6 +303,10 @@ ul.horizontal-list {
   padding: $body-padding;
 }
 
+.masthead__title {
+  margin: 0;
+}
+
 // ------------------------------------------------------------------------------------------------
 // Page
 // ------------------------------------------------------------------------------------------------
@@ -333,7 +335,7 @@ ul.horizontal-list {
 }
 
 .nav__link {
-  display: block;
+  display: inline-block;
   padding: ($unit / 2) 0;
 }
 
@@ -361,6 +363,10 @@ ul.horizontal-list {
 // Wordplay
 // ------------------------------------------------------------------------------------------------
 
+$wordplay-padding-horizontal: $body-padding;
+$wordplay-padding-vertical: $body-padding;
+$wordplay-padding-horizontal-large: 20vw;
+
 .wordplay {
   padding: $body-padding;
 
@@ -374,9 +380,13 @@ ul.horizontal-list {
 
   @include breakpoint($at-mediumAndAbove) {
     position: fixed;
-    top: $body-padding;
-    left: $body-padding;
+    top: $wordplay-padding-vertical;
+    left: $wordplay-padding-horizontal;
     z-index: -1;
+  }
+
+  @include breakpoint($at-largeAndAbove) {
+    left: $wordplay-padding-horizontal-large;
   }
 }
 
@@ -395,8 +405,12 @@ ul.horizontal-list {
 .wordplay__content {
   @include breakpoint($at-mediumAndAbove) {
     position: fixed;
-    bottom: $body-padding;
-    right: $body-padding;
+    bottom: $wordplay-padding-vertical;
+    right: $wordplay-padding-horizontal;
+  }
+
+  @include breakpoint($at-largeAndAbove) {
+    right: $wordplay-padding-horizontal-large;
   }
 }
 
@@ -417,13 +431,17 @@ ul.horizontal-list {
 .wordplay__section {
   height: 100vh;
   margin: 0;
-  padding-left: $body-padding;
-  padding-top: $body-padding;
+  padding-left: $wordplay-padding-horizontal;
+  padding-top: $wordplay-padding-vertical;
+
+  @include breakpoint($at-largeAndAbove) {
+    padding-left: $wordplay-padding-horizontal-large;
+  }
 }
 
 .wordplay__description {
   @include breakpoint($at-mediumAndAbove) {
-    max-width: 50vw;
+    max-width: 20em;
     padding: $unit;
     padding-right: 0;
     position: relative;
@@ -448,11 +466,7 @@ ul.horizontal-list {
 
 .embed {
   width: 100%;
-  margin-bottom: $unit * 2;
-
-  @include breakpoint($at-mediumAndAbove) {
-    max-width: 50vw;
-  }
+  @include ms-respond(margin-bottom, 1);
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -478,6 +492,7 @@ ul.horizontal-list {
 
 .upcoming-event__title {
   color: color('default');
+  display: block;
   text-decoration-color: color('default');
   line-height: 1;
 

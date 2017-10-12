@@ -3,18 +3,25 @@ layout: page
 ---
 
 <p>
-  <strong>{{ page.date | date: "%B %d, %I:%M %p" }}</strong>
-  <br />
-  <em>{{ page.location }}</em>
+  <small>
+    <strong>{{ page.date | date: "%B %d, %I:%M %p" }}</strong>
+    <br />
+    <em>{{ page.location }}</em>
+  </small>
 </p>
 
-{{ content }}
-
-{% if page.eventbrite_id %}
-  {%
-    include
-      eventbrite.html
-      event_id=page.eventbrite_id
-      height=360
-  %}
-{% endif %}
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6">
+    {{ content }}
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6">
+    {% if page.eventbrite_id %}
+      {%
+        include
+          eventbrite.html
+          event_id=page.eventbrite_id
+          height=360
+      %}
+    {% endif %}
+  </div>
+</div>

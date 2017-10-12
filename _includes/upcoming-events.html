@@ -8,22 +8,25 @@
 
 <div class="upcoming-events row">
   {% for event in events %}
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       <div class="upcoming-event">
         <div class="upcoming-event__details">
-          <div class="space-2">
-            <a class="upcoming-event__title subheading-5" href="{{ event.url }}">
-              {{ event.title }}
-            </a>
-          </div>
+          <a class="upcoming-event__title subheading-5" href="{{ event.url }}">
+            {{ event.title }}
+          </a>
+
           <div class="upcoming-event__time space-2">
             <small><em>{{ event.date | date: "%l:%M %p" }}</em></small><br />
             <small><em>{{ event.location }}</em></small>
           </div>
+
           <div class="upcoming-event__description">
             {{ event.excerpt }}
           </div>
-          <a class="upcoming-event__action btn btn--action" href="{{ event.url }}">Get a ticket</a>
+
+          <a class="upcoming-event__action btn btn--action" href="{{ event.url }}">
+            Get a ticket
+          </a>
         </div>
         <div class="upcoming-event__date heading-6">
           <span class="upcoming-event__date-month">{{ event.date | date: "%b" }}</span>
